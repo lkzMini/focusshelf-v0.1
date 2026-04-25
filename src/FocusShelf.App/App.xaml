@@ -1,0 +1,162 @@
+<Application
+    x:Class="FocusShelf.App.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="FocusShelfSurfaceBrush" Color="#FF151A18" />
+                    <SolidColorBrush x:Key="FocusShelfCardBrush" Color="#FF202622" />
+                    <SolidColorBrush x:Key="FocusShelfPanelBrush" Color="#FF262E29" />
+                    <SolidColorBrush x:Key="FocusShelfInputBrush" Color="#FF171D1A" />
+                    <SolidColorBrush x:Key="FocusShelfPrimaryTextBrush" Color="#FFF3F0E8" />
+                    <SolidColorBrush x:Key="FocusShelfMutedBrush" Color="#FFC9D0C5" />
+                    <SolidColorBrush x:Key="FocusShelfSubtleTextBrush" Color="#FFAEB8AC" />
+                    <SolidColorBrush x:Key="FocusShelfBorderBrush" Color="#FF3B463F" />
+                    <SolidColorBrush x:Key="FocusShelfStrongBorderBrush" Color="#FF5D6B61" />
+                    <SolidColorBrush x:Key="FocusShelfAccentBrush" Color="#FF8FAE88" />
+                    <SolidColorBrush x:Key="FocusShelfAccentHoverBrush" Color="#FFA3C59B" />
+                    <SolidColorBrush x:Key="FocusShelfAccentPressedBrush" Color="#FF75936F" />
+                    <SolidColorBrush x:Key="FocusShelfButtonBrush" Color="#FF303A34" />
+                    <SolidColorBrush x:Key="FocusShelfButtonHoverBrush" Color="#FF3B473F" />
+                    <SolidColorBrush x:Key="FocusShelfButtonPressedBrush" Color="#FF4A574F" />
+
+                    <SolidColorBrush x:Key="ButtonBackground" Color="#FF303A34" />
+                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#FF3B473F" />
+                    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#FF4A574F" />
+                    <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="#FF242B27" />
+                    <SolidColorBrush x:Key="ButtonForeground" Color="#FFF3F0E8" />
+                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#FFFFFFFF" />
+                    <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#FFFFFFFF" />
+                    <SolidColorBrush x:Key="ButtonForegroundDisabled" Color="#FF7C867C" />
+                    <SolidColorBrush x:Key="ButtonBorderBrush" Color="#FF5D6B61" />
+                    <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#FF789082" />
+                    <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#FF8FAE88" />
+                    <SolidColorBrush x:Key="ButtonBorderBrushDisabled" Color="#FF343D38" />
+
+                    <SolidColorBrush x:Key="TextControlBackground" Color="#FF171D1A" />
+                    <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="#FF1C231F" />
+                    <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="#FF101613" />
+                    <SolidColorBrush x:Key="TextControlForeground" Color="#FFF3F0E8" />
+                    <SolidColorBrush x:Key="TextControlForegroundPointerOver" Color="#FFF3F0E8" />
+                    <SolidColorBrush x:Key="TextControlForegroundFocused" Color="#FFF3F0E8" />
+                    <SolidColorBrush x:Key="TextControlForegroundDisabled" Color="#FF7C867C" />
+                    <SolidColorBrush x:Key="TextControlPlaceholderForeground" Color="#FF9EA89E" />
+                    <SolidColorBrush x:Key="TextControlPlaceholderForegroundFocused" Color="#FF9EA89E" />
+                    <SolidColorBrush x:Key="TextControlBorderBrush" Color="#FF4A574F" />
+                    <SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="#FF6E8175" />
+                    <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="#FF8FAE88" />
+                    <SolidColorBrush x:Key="TextControlHeaderForeground" Color="#FFC9D0C5" />
+                    <Color x:Key="TextControlSelectionHighlightColor">#667FA877</Color>
+                </ResourceDictionary>
+
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="FocusShelfSurfaceBrush" Color="#FFF3EEE5" />
+                    <SolidColorBrush x:Key="FocusShelfCardBrush" Color="#FFFFFCF7" />
+                    <SolidColorBrush x:Key="FocusShelfPanelBrush" Color="#FFF6EFE4" />
+                    <SolidColorBrush x:Key="FocusShelfInputBrush" Color="#FFFFFFFF" />
+                    <SolidColorBrush x:Key="FocusShelfPrimaryTextBrush" Color="#FF1E2621" />
+                    <SolidColorBrush x:Key="FocusShelfMutedBrush" Color="#FF556157" />
+                    <SolidColorBrush x:Key="FocusShelfSubtleTextBrush" Color="#FF69756B" />
+                    <SolidColorBrush x:Key="FocusShelfBorderBrush" Color="#FFD9CDBE" />
+                    <SolidColorBrush x:Key="FocusShelfStrongBorderBrush" Color="#FFBBAE9E" />
+                    <SolidColorBrush x:Key="FocusShelfAccentBrush" Color="#FF6E8C66" />
+                    <SolidColorBrush x:Key="FocusShelfAccentHoverBrush" Color="#FF5D7A56" />
+                    <SolidColorBrush x:Key="FocusShelfAccentPressedBrush" Color="#FF4E6849" />
+                    <SolidColorBrush x:Key="FocusShelfButtonBrush" Color="#FFF2E7DA" />
+                    <SolidColorBrush x:Key="FocusShelfButtonHoverBrush" Color="#FFE7D7C4" />
+                    <SolidColorBrush x:Key="FocusShelfButtonPressedBrush" Color="#FFD8C3AA" />
+
+                    <SolidColorBrush x:Key="ButtonBackground" Color="#FFF2E7DA" />
+                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#FFE7D7C4" />
+                    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#FFD8C3AA" />
+                    <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="#FFF2ECE3" />
+                    <SolidColorBrush x:Key="ButtonForeground" Color="#FF1E2621" />
+                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#FF1E2621" />
+                    <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#FF1E2621" />
+                    <SolidColorBrush x:Key="ButtonForegroundDisabled" Color="#FF8E857D" />
+                    <SolidColorBrush x:Key="ButtonBorderBrush" Color="#FFBBAE9E" />
+                    <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#FFA29281" />
+                    <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#FF887867" />
+                    <SolidColorBrush x:Key="ButtonBorderBrushDisabled" Color="#FFDCCFC0" />
+
+                    <SolidColorBrush x:Key="TextControlBackground" Color="#FFFFFFFF" />
+                    <SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="#FFFFFCF9" />
+                    <SolidColorBrush x:Key="TextControlBackgroundFocused" Color="#FFFFFFFF" />
+                    <SolidColorBrush x:Key="TextControlForeground" Color="#FF1E2621" />
+                    <SolidColorBrush x:Key="TextControlForegroundPointerOver" Color="#FF1E2621" />
+                    <SolidColorBrush x:Key="TextControlForegroundFocused" Color="#FF1E2621" />
+                    <SolidColorBrush x:Key="TextControlForegroundDisabled" Color="#FF8E857D" />
+                    <SolidColorBrush x:Key="TextControlPlaceholderForeground" Color="#FF7A847C" />
+                    <SolidColorBrush x:Key="TextControlPlaceholderForegroundFocused" Color="#FF7A847C" />
+                    <SolidColorBrush x:Key="TextControlBorderBrush" Color="#FFCDBBAA" />
+                    <SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="#FFAB9784" />
+                    <SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="#FF6E8C66" />
+                    <SolidColorBrush x:Key="TextControlHeaderForeground" Color="#FF556157" />
+                    <Color x:Key="TextControlSelectionHighlightColor">#666E8C66</Color>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+
+            <Style x:Key="CalmCardStyle" TargetType="Border">
+                <Setter Property="Background" Value="{ThemeResource FocusShelfCardBrush}" />
+                <Setter Property="BorderBrush" Value="{ThemeResource FocusShelfBorderBrush}" />
+                <Setter Property="BorderThickness" Value="1.5" />
+                <Setter Property="CornerRadius" Value="22" />
+                <Setter Property="Padding" Value="24" />
+            </Style>
+
+            <Style x:Key="PrimaryCardStyle" TargetType="Border">
+                <Setter Property="Background" Value="{ThemeResource FocusShelfCardBrush}" />
+                <Setter Property="BorderBrush" Value="{ThemeResource FocusShelfAccentBrush}" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="CornerRadius" Value="24" />
+                <Setter Property="Padding" Value="28" />
+            </Style>
+
+            <Style x:Key="SectionTitleStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Foreground" Value="{ThemeResource FocusShelfMutedBrush}" />
+                <Setter Property="CharacterSpacing" Value="40" />
+            </Style>
+
+            <Style x:Key="SupportingTextStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Foreground" Value="{ThemeResource FocusShelfSubtleTextBrush}" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="MinHeight" Value="38" />
+                <Setter Property="Padding" Value="14,8" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Background" Value="{ThemeResource FocusShelfButtonBrush}" />
+                <Setter Property="Foreground" Value="{ThemeResource FocusShelfPrimaryTextBrush}" />
+                <Setter Property="BorderBrush" Value="{ThemeResource FocusShelfStrongBorderBrush}" />
+                <Setter Property="BorderThickness" Value="1.25" />
+                <Setter Property="CornerRadius" Value="10" />
+            </Style>
+
+            <Style x:Key="PrimaryActionButtonStyle" TargetType="Button">
+                <Setter Property="MinHeight" Value="40" />
+                <Setter Property="Padding" Value="16,9" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Background" Value="{ThemeResource FocusShelfAccentBrush}" />
+                <Setter Property="Foreground" Value="#FF111713" />
+                <Setter Property="BorderBrush" Value="{ThemeResource FocusShelfAccentBrush}" />
+                <Setter Property="BorderThickness" Value="1.25" />
+                <Setter Property="CornerRadius" Value="10" />
+            </Style>
+
+            <Style TargetType="TextBox">
+                <Setter Property="Background" Value="{ThemeResource FocusShelfInputBrush}" />
+                <Setter Property="Foreground" Value="{ThemeResource FocusShelfPrimaryTextBrush}" />
+                <Setter Property="BorderBrush" Value="{ThemeResource FocusShelfStrongBorderBrush}" />
+                <Setter Property="BorderThickness" Value="1.25" />
+                <Setter Property="CornerRadius" Value="12" />
+                <Setter Property="Padding" Value="12" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

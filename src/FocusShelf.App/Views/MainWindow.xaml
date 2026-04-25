@@ -1,0 +1,269 @@
+<Window
+    x:Class="FocusShelf.App.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="FocusShelf">
+
+    <Grid
+        x:Name="Root"
+        Background="{ThemeResource FocusShelfSurfaceBrush}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Grid MinWidth="980" MaxWidth="1120" Padding="40" HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Spacing="8" Margin="0,0,0,30">
+                    <TextBlock
+                        Text="FocusShelf"
+                        FontSize="34"
+                        FontWeight="SemiBold"
+                        Foreground="{ThemeResource FocusShelfPrimaryTextBrush}" />
+                    <TextBlock
+                        Text="A quiet shelf for today's focus."
+                        FontSize="16"
+                        Foreground="{ThemeResource FocusShelfMutedBrush}" />
+                </StackPanel>
+
+                <Grid Grid.Row="1" ColumnSpacing="24" RowSpacing="24">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.35*" />
+                        <ColumnDefinition Width="0.9*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Column="0" Grid.Row="0" Style="{StaticResource PrimaryCardStyle}">
+                        <StackPanel Spacing="18">
+                            <StackPanel Spacing="6">
+                                <TextBlock Text="CURRENT FOCUS" Style="{StaticResource SectionTitleStyle}" />
+                                <TextBlock
+                                    Text="Put one thing here. Not the whole day."
+                                    Style="{StaticResource SupportingTextStyle}" />
+                            </StackPanel>
+
+                            <TextBox
+                                Text="{Binding CurrentFocus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                PlaceholderText="What deserves your attention right now?"
+                                FontSize="24"
+                                FontWeight="SemiBold"
+                                TextWrapping="Wrap"
+                                AcceptsReturn="True"
+                                MinHeight="104" />
+
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="NEXT STEP" Style="{StaticResource SectionTitleStyle}" />
+                                <TextBox
+                                    Text="{Binding NextStep, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    PlaceholderText="What is the smallest next move?"
+                                    FontSize="17"
+                                    TextWrapping="Wrap"
+                                    AcceptsReturn="True"
+                                    MinHeight="76" />
+                            </StackPanel>
+
+                            <Button
+                                HorizontalAlignment="Left"
+                                Style="{StaticResource PrimaryActionButtonStyle}"
+                                Command="{Binding MarkCurrentFocusDoneCommand}"
+                                Content="Mark current focus as a small win">
+                                <Button.Resources>
+                                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#FFA3C59B" />
+                                    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#FF75936F" />
+                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#FF111713" />
+                                    <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#FF111713" />
+                                    <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#FFA3C59B" />
+                                    <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#FF75936F" />
+                                </Button.Resources>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="1" Grid.Row="0" Style="{StaticResource CalmCardStyle}">
+                        <StackPanel Spacing="20">
+                            <StackPanel Spacing="6">
+                                <TextBlock Text="FOCUS TIMER" Style="{StaticResource SectionTitleStyle}" />
+                                <TextBlock
+                                    Text="{Binding TimerStatusText}"
+                                    Style="{StaticResource SupportingTextStyle}" />
+                            </StackPanel>
+
+                            <Border
+                                Background="{ThemeResource FocusShelfPanelBrush}"
+                                BorderBrush="{ThemeResource FocusShelfBorderBrush}"
+                                BorderThickness="1.5"
+                                CornerRadius="18"
+                                Padding="18,14">
+                                <TextBlock
+                                    Text="{Binding TimerDisplay}"
+                                    FontSize="58"
+                                    FontWeight="SemiBold"
+                                    HorizontalAlignment="Center"
+                                    Foreground="{ThemeResource FocusShelfPrimaryTextBrush}" />
+                            </Border>
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+                                <Button
+                                    Style="{StaticResource PrimaryActionButtonStyle}"
+                                    Command="{Binding StartTimerCommand}"
+                                    Content="Start">
+                                    <Button.Resources>
+                                        <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#FFA3C59B" />
+                                        <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#FF75936F" />
+                                        <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#FF111713" />
+                                        <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#FF111713" />
+                                        <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#FFA3C59B" />
+                                        <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#FF75936F" />
+                                    </Button.Resources>
+                                </Button>
+                                <Button Command="{Binding PauseTimerCommand}" Content="Pause" />
+                                <Button Command="{Binding ResetTimerCommand}" Content="Reset" />
+                            </StackPanel>
+
+                            <Border
+                                Background="{ThemeResource FocusShelfPanelBrush}"
+                                BorderBrush="{ThemeResource FocusShelfBorderBrush}"
+                                BorderThickness="1.5"
+                                CornerRadius="16"
+                                Padding="16">
+                                <StackPanel Spacing="8">
+                                    <TextBlock Text="TODAY" Style="{StaticResource SectionTitleStyle}" />
+                                    <TextBlock
+                                        Text="{Binding ProgressSummary}"
+                                        FontSize="16"
+                                        FontWeight="SemiBold"
+                                        Foreground="{ThemeResource FocusShelfPrimaryTextBrush}" />
+                                    <TextBlock
+                                        Text="Progress here is intentionally tiny. It is a nudge, not a scoreboard."
+                                        FontSize="13"
+                                        Foreground="{ThemeResource FocusShelfSubtleTextBrush}"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="0" Grid.Row="1" Style="{StaticResource CalmCardStyle}">
+                        <StackPanel Spacing="14">
+                            <StackPanel Spacing="6">
+                                <TextBlock Text="QUICK NOTE" Style="{StaticResource SectionTitleStyle}" />
+                                <TextBlock
+                                    Text="Loose thoughts can sit here without becoming a project."
+                                    Style="{StaticResource SupportingTextStyle}" />
+                            </StackPanel>
+
+                            <TextBox
+                                Text="{Binding QuickNote, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                PlaceholderText="Drop the thought. Return to the next step."
+                                TextWrapping="Wrap"
+                                AcceptsReturn="True"
+                                MinHeight="220" />
+
+                            <TextBlock
+                                Text="{Binding SaveStatusText}"
+                                FontSize="12"
+                                Foreground="{ThemeResource FocusShelfSubtleTextBrush}"
+                                HorizontalAlignment="Right" />
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel Grid.Column="1" Grid.Row="1" Spacing="24">
+                        <Border Style="{StaticResource CalmCardStyle}">
+                            <StackPanel Spacing="12">
+                                <TextBlock Text="TODAY'S REMINDER" Style="{StaticResource SectionTitleStyle}" />
+                                <TextBlock
+                                    Text="{Binding DailyMessage}"
+                                    FontSize="20"
+                                    FontWeight="SemiBold"
+                                    Foreground="{ThemeResource FocusShelfPrimaryTextBrush}"
+                                    TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource CalmCardStyle}">
+                            <StackPanel Spacing="14">
+                                <StackPanel Spacing="6">
+                                    <TextBlock Text="WHAT FELT DONE" Style="{StaticResource SectionTitleStyle}" />
+                                    <TextBlock
+                                        Text="Optional. Keep it honest and small."
+                                        Style="{StaticResource SupportingTextStyle}" />
+                                </StackPanel>
+
+                                <Grid ColumnSpacing="8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox
+                                        Text="{Binding AddDoneText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        PlaceholderText="One small win"
+                                        VerticalAlignment="Center" />
+                                    <Button
+                                        Grid.Column="1"
+                                        Style="{StaticResource PrimaryActionButtonStyle}"
+                                        Command="{Binding AddDoneItemCommand}"
+                                        Content="Add">
+                                        <Button.Resources>
+                                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#FFA3C59B" />
+                                            <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#FF75936F" />
+                                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#FF111713" />
+                                            <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#FF111713" />
+                                            <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#FFA3C59B" />
+                                            <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#FF75936F" />
+                                        </Button.Resources>
+                                    </Button>
+                                </Grid>
+
+                                <Border
+                                    Background="{ThemeResource FocusShelfPanelBrush}"
+                                    BorderBrush="{ThemeResource FocusShelfBorderBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="12"
+                                    Padding="6">
+                                    <ListView
+                                        ItemsSource="{Binding DoneItems}"
+                                        MaxHeight="190"
+                                        SelectionMode="None"
+                                        Background="{ThemeResource FocusShelfPanelBrush}"
+                                        Padding="0">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid ColumnSpacing="10" Padding="6,4">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock
+                                                        Text="{Binding}"
+                                                        TextWrapping="Wrap"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{ThemeResource FocusShelfPrimaryTextBrush}" />
+                                                    <Button
+                                                        Grid.Column="1"
+                                                        CommandParameter="{Binding}"
+                                                        Click="OnRemoveDoneItemClicked"
+                                                        Content="Remove" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </Border>
+
+                                <Button
+                                    HorizontalAlignment="Right"
+                                    Command="{Binding ClearTodayProgressCommand}"
+                                    Content="Clear today" />
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Window>
