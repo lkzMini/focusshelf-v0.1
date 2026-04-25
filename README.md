@@ -1,195 +1,182 @@
 # FocusShelf
 
-FocusShelf is a small local-first Windows desktop app for gently holding today's focus.
+FocusShelf is a small local-first Windows app for gently holding today's focus.
 
-It is not a task-management suite, not a planner, and not a productivity dashboard. The goal is simpler: one current focus, one next step, a quiet note area, a lightweight timer, and a small sense of progress.
+It is intentionally simple: one current focus, one next step, a quick note, a small focus timer, and a lightweight “done today” list.
 
-## Early MVP status
+FocusShelf is currently an early MVP. It is usable for basic testing, but still experimental.
 
-FocusShelf is an **early MVP**. It is intended to feel calm and useful, but it is still small in scope and conservative in features.
+## Current status
 
-This repository is being prepared for public GitHub use as an early project, not as a finished commercial release.
+FocusShelf is an early public MVP focused on:
+
+- local-first usage
+- simple daily focus
+- small task/notes flow
+- readable light/dark theme behavior
+- local persistence
+- minimal UI
+
+It is not intended to be a full productivity suite, project manager, calendar, or task automation system.
 
 ## Features
 
-- One **Current focus** item
-- One **Next step**
-- A plain-text **Quick note**
-- A simple **focus timer**
-- A rotating **daily reminder**
-- A tiny **What felt done** list
-- Local JSON persistence under the current user's profile
-- Theme-aware light/dark styling with a calm visual tone
-
-## What FocusShelf is not
-
-- No accounts
-- No sync
-- No cloud storage
-- No analytics or telemetry
-- No notifications
-- No calendar
-- No heavy settings system
-- No AI assistance
-
-## Privacy / local data
-
-FocusShelf stores its state **locally only**.
-
-Current save location:
-
-- `%LOCALAPPDATA%\FocusShelf\state.json`
-
-The app does not send data anywhere and does not require a login.
-
-## Known limitations
-
-- This is still an early MVP with a deliberately small feature set.
-- The timer is intentionally simple and does not include advanced session history or notifications.
-- Public release packaging is a **Release ZIP**, not MSIX.
-- The ZIP does not require admin rights, certificate trust, or MSIX sideloading.
-- The ZIP uses the same framework-dependent unpackaged Windows App SDK deployment style as the working Visual Studio/Debug output.
-
-## Tech stack
-
-- C#
-- WinUI 3
-- Windows App SDK
-- Lightweight MVVM (no extra MVVM framework)
+- Current focus field
+- Next step field
+- Quick note field
+- Simple focus timer
+- Daily reminder/message area
+- “What felt done” list
 - Local JSON persistence
-- Framework-dependent unpackaged ZIP release
+- Safer local save handling
+- Improved light/dark text input contrast
+- Basic resize protection
+- No account required
+- No cloud sync
 
-## Project structure
+## Download
 
-```text
-FocusShelf.sln
-src/
-  FocusShelf.App/
-tests/
-docs/
-scripts/
+Go to the latest GitHub Release and download the Windows `.zip` build.
+
+Example:
+
+```txt
+FocusShelf-v0.1.0-win-x64.zip
 ```
 
-## Build and run for development
+Then:
 
-### Requirements
+1. Extract the `.zip`
+2. Run:
 
-- Windows 10/11
-- .NET 8 SDK
-- Visual Studio with WinUI / Windows App SDK support, or equivalent MSBuild environment
+```txt
+FocusShelf.App.exe
+```
 
-### Open in Visual Studio
+This is an unsigned early build, so Windows SmartScreen may show a warning.
+
+If that happens, choose:
+
+```txt
+More info → Run anyway
+```
+
+## Runtime requirements
+
+FocusShelf is distributed as a framework-dependent ZIP build.
+
+If the app does not launch, you may need:
+
+- .NET Desktop Runtime
+- Windows App SDK Runtime
+
+The app is currently tested as a Windows-focused WinUI/Windows App SDK desktop app.
+
+## Build from source
+
+Requirements:
+
+- Windows
+- .NET 8 SDK or newer compatible SDK
+- Visual Studio 2022 or compatible Windows/.NET development tools
+
+Clone the repo:
 
 ```powershell
-devenv .\FocusShelf.sln
+git clone https://github.com/lkzMini/FocusShelf.git
+cd FocusShelf
 ```
 
-Use the `FocusShelf.App (Unpackaged)` profile for local development.
-
-### CLI build
+Build the app:
 
 ```powershell
-dotnet build .\src\FocusShelf.App\FocusShelf.App.csproj `
-  -c Debug `
-  -p:Platform=x64 `
-  -p:WindowsPackageType=None `
-  -p:WindowsAppSDKSelfContained=false
+dotnet build .\src\FocusShelf.App\FocusShelf.App.csproj -c Release
 ```
 
-### CLI run
+## Creating a release ZIP
 
-```powershell
-dotnet run --project .\src\FocusShelf.App\FocusShelf.App.csproj `
-  -c Debug `
-  -p:Platform=x64 `
-  -p:WindowsPackageType=None `
-  -p:WindowsAppSDKSelfContained=false
-```
-
-## Release packaging
-
-FocusShelf public releases use a **Release ZIP** generated from a clean Release build output folder.
-
-The public ZIP path intentionally avoids:
-
-- Debug-output hacks
-- self-signed MSIX certificates
-- certificate installation
-- MSIX trust prompts
-- admin-only install steps
-- manually zipping random `bin\Debug` files
-
-### Why not self-signed MSIX?
-
-Self-signed MSIX technically works as a packaging model, but the user experience is wrong for a small public MVP: users must trust a certificate before installing the package, and that is a security/UX smell. Come on, if the first interaction with a tiny focus app is “please trust my cert”, we already lost.
-
-MSIX remains a possible future option only if the app gets a proper trusted signing story.
-
-### Why not `dotnet publish` self-contained ZIP?
-
-The previous self-contained publish ZIP was created successfully, but the clean-folder smoke test failed immediately with:
-
-- faulting module: `Microsoft.UI.Xaml.dll`
-- exception code: `0xc000027b`
-
-The working Debug output is different: it is framework-dependent and uses the Windows App SDK bootstrapper from the `runtimes\win-x64\native` folder instead of carrying private `Microsoft.ui.xaml.dll` / `Microsoft.WindowsAppRuntime.dll` files next to the app executable.
-
-The release ZIP script therefore builds **Release** using the working framework-dependent unpackaged model, copies the clean output into an artifact folder, excludes dev-only noise, zips it, extracts it, and smoke-tests the extracted app.
-
-### Create the release ZIP
+Use the included release script:
 
 ```powershell
 .\scripts\build-release.ps1 -Platform x64 -Version v0.1.0
 ```
 
+The script is expected to:
+
+1. Build the app in Release mode
+2. Create a clean package folder
+3. Generate a ZIP artifact
+4. Extract the ZIP into a smoke-test folder
+5. Launch the app from the extracted folder
+6. Fail if the app exits immediately or logs an Application Error
+
 Expected artifact:
 
-```text
+```txt
 artifacts\release\FocusShelf-v0.1.0-win-x64.zip
 ```
 
-The script also creates:
-
-```text
-artifacts\package\win-x64
-artifacts\smoke-test\win-x64
-```
-
-### Clean-folder smoke test only
-
-If the ZIP already exists and you want to manually repeat the clean-folder test:
-
-```powershell
-Remove-Item .\artifacts\smoke-test\win-x64 -Recurse -Force -ErrorAction SilentlyContinue
-Expand-Archive .\artifacts\release\FocusShelf-v0.1.0-win-x64.zip -DestinationPath .\artifacts\smoke-test\win-x64 -Force
-Start-Process .\artifacts\smoke-test\win-x64\FocusShelf.App.exe -WorkingDirectory .\artifacts\smoke-test\win-x64
-```
-
-The release script performs the stricter automated version: it fails if the app exits immediately or if Windows logs an Application Error for FocusShelf / Microsoft UI XAML during the smoke-test window.
-
-### Install/use from GitHub Releases
-
-1. Download `FocusShelf-v0.1.0-win-x64.zip`.
-2. Extract it to a normal user-writable folder.
-3. Run `FocusShelf.App.exe`.
-
-No admin. No certificate. No MSIX trust. No installer.
-
-### Optional/future MSIX note
-
-The repository may keep MSIX metadata/assets for future packaging experiments, but MSIX is **not** the default public release path until there is a trusted signing story.
-
 ## Manual QA checklist
 
-- ZIP is produced from Release, not Debug
-- ZIP extracts into a clean folder
-- Extracted `FocusShelf.App.exe` launches
-- No Application Error is logged during launch smoke test
-- App opens with no existing save file
-- App opens with a malformed/corrupt save file without crashing
-- Current focus, next step, and note save locally
-- Done list add/remove/clear works
-- Timer start/pause/reset works
-- Text input remains readable in both light and dark system themes
-- Window resize does not collapse the layout into unusable shapes
-- The app still feels small, calm, and local-first
+Before publishing a release, test:
+
+1. Open the app from the extracted ZIP
+2. Type into the main focus fields
+3. Confirm text remains readable
+4. Start, pause, and reset the timer
+5. Add an item to the done list
+6. Close and reopen the app
+7. Confirm local state persists
+8. Resize the window
+9. Confirm the UI does not visually break
+10. Test in light and dark Windows themes if possible
+
+## Known limitations
+
+- Early MVP
+- Windows-focused
+- Unsigned executable
+- No installer yet
+- No automated tests yet
+- No sync
+- No accounts
+- No notifications
+- No advanced planning/project features
+- ZIP release may require the correct .NET/Windows App SDK runtimes on the target machine
+
+## Privacy
+
+FocusShelf is designed as a local-first app.
+
+Current MVP behavior stores data locally only. It does not require an account, cloud sync, or an online service.
+
+Local app state is stored under the user profile, for example:
+
+```txt
+%LOCALAPPDATA%\FocusShelf\
+```
+
+## Packaging note
+
+FocusShelf is currently released as a simple framework-dependent ZIP.
+
+A self-signed MSIX flow was intentionally rejected for the public MVP because it would require users to manually trust a certificate or run installation steps with elevated privileges. That is not acceptable UX for a small public utility.
+
+A future release may use a proper installer or MSIX package if a trusted signing path is available.
+
+## Roadmap ideas
+
+Possible future improvements:
+
+- Better installer
+- More polished first-run experience
+- Optional import/export
+- Better keyboard shortcuts
+- More theme polish
+- Automated tests
+- More robust release pipeline
+- Optional notification/reminder support
+
+## License
+
+This project is released under the MIT License.
